@@ -20,6 +20,13 @@ class Queue:
     def print(self):
         for item in self.queue:
             print(item)
+    
+    # checks if stack is empty or not
+    def isEmpty(self):
+        if not self.stack:
+            return True
+        else:
+            return False
 
 def main():
     songsList = Queue()
