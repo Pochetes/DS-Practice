@@ -57,7 +57,42 @@ def postOrderTraversal(root):
         postOrderTraversal(root.right)
         print(root.val)
 
+def levelOrderTraversal(root):
+    # for every node, print the curr node and enqueue its children
+    # [1, [2, [4, 6] 3, [20]]] --> print 1 enqueue 2 and 3
+    if not root:
+        return
+    
+    queue = []
+    queue.append(root) # add the root node to access all its children
+
+    while len(queue) > 0: # traverse the tree while queue is not empty
+        currNode = queue[0] 
+
+        # check its children to add to the queue
+        # after children are added, the most recent item is popped
+        # and printed to the screen
+        if currNode.left != None:
+            queue.append(currNode.left)
+
+        if currNode.right != None:
+            queue.append(currNode.right) 
+
+        visited = queue.pop(0)
+        print(visited.val)
+    
+
 def main():
+    '''
+    Tree:
+         20
+      /      \
+     2       50
+    / \     /
+   1  17  23    
+     /
+    9 
+    '''
     newTree = Tree(20)
 
     newTree = insert(newTree, 50)
@@ -76,8 +111,13 @@ def main():
     print("\npost order:")
     postOrderTraversal(newTree)
 
+    print("\nlevel order traversal (breadth first search)")
+    levelOrderTraversal(newTree)
+
     print("\nsearch for 50:")
     newTree = search(newTree, 50)
+
+    
 
 if __name__ == "__main__":
     main()
