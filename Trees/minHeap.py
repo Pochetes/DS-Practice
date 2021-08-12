@@ -19,8 +19,11 @@ class Heap:
     def hasParentNode(self, index):
         return self.parentNode(index) >= 0
 
-    def hasBothChildren(self, index):
-        return self.leftChild(index) < len(self.heap) and self.rightChild(index) < len(self.heap)
+    def hasLeftChild(self, index):
+        return self.leftChild(index) < len(self.heap)
+        
+    def hasRightChild(self, index):    
+        return self.rightChild(index) < len(self.heap)
 
     def swap(self, index, parentIndex):
         temp = self.heap[index]
@@ -41,7 +44,40 @@ class Heap:
         print(self.heap)
 
     def findMin(self):
-        print(self.heap.pop(0))
+        print(self.heap[0])
+    
+    def delete(self):
+        if len(self.heap) == 0:
+            return -1
+        lastIndex = len(self.heap) - 1
+        self.swap(0, lastIndex)
+        root = self.heap.pop()
+        self.heapifyDown(0)
+        return root
+
+    def heapifyDown(self, index):
+        while self.hasLeftChild(index):
+            minChild = self.getMinChild(index)
+
+            if minChild == -1:
+                break
+            if self.heap[index] > self.heap[minChild]:
+                self.swap(index, minChild)
+                index = minChild
+            else:
+                break
+    
+    def getMinChild(self, index):
+        if self.hasLeftChild(index):
+            left_child = self.leftChild(index)
+            if self.hasRightChild(index):
+                right_child = self.rightChild(index)
+                if self.heap[left_child] < self.heap[right_child]:
+                    return left_child
+                else:
+                    return right_child
+        else:
+            return -1
 
 # execution function
 def main():
@@ -54,6 +90,13 @@ def main():
     minHeap.insert(99)
     minHeap.insert(24)
 
+    print("Before deleting")
+    minHeap.printHeap()
+    minHeap.findMin()
+
+    minHeap.delete()
+
+    print("After deleting")
     minHeap.printHeap()
     minHeap.findMin()
 
