@@ -47,6 +47,9 @@ class Heap:
         print(self.heap[0])
     
     def delete(self):
+        # swaps the root node with the last node
+        # deletes connection of the last node (which was previously the root node to delete)
+        # starts the "sink" process until max heap variant is satisfied
         if len(self.heap) == 0:
             return -1
         lastIndex = len(self.heap) - 1
@@ -61,6 +64,8 @@ class Heap:
 
             if minChild == -1:
                 break
+            # after finding minChild, compare with currNode to see if it should
+            # be bubbled down the tree
             if self.heap[index] > self.heap[minChild]:
                 self.swap(index, minChild)
                 index = minChild
@@ -68,10 +73,12 @@ class Heap:
                 break
     
     def getMinChild(self, index):
+        # checks if left and right children exist
         if self.hasLeftChild(index):
             left_child = self.leftChild(index)
             if self.hasRightChild(index):
                 right_child = self.rightChild(index)
+                # compare to see which one is lesser to compare with currNode
                 if self.heap[left_child] < self.heap[right_child]:
                     return left_child
                 else:
