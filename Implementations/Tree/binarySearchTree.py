@@ -80,7 +80,8 @@ def levelOrderTraversal(root):
 
         visited = queue.pop(0)
         print(visited.val)
-    
+
+
 
 def main():
     '''
