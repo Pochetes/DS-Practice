@@ -63,14 +63,18 @@ class Graph(object):
                     visited.append(neighbor)
                     queue.append(neighbor)
 
+    # prints nodes traversed in depth-first fashion
+    # runtime: O(V + E) where V : vertices and E : edges
     def depthFirstSearch(self, vertex):
-        visited = []
+        visited = [vertex]
         stack = [vertex]
 
         while not self.isEmpty(stack):
             currNode = stack.pop()
             print(currNode, end=" ")
-            visited.append(currNode)
+
+            if currNode not in visited:
+                visited.append(currNode)
             
             for neighbor in self.edgesForVertex(currNode):
                 if neighbor not in visited:
